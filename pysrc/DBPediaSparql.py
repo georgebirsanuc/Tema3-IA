@@ -38,7 +38,7 @@ def mainul():
             WHERE { <http://dbpedia.org/resource/"""+tempor+"""> dbo:class  ?label }
         """)
 
-        print(rootWord)
+        print(tempor)
         sparql.setReturnFormat(JSON)
         results = sparql.query().convert()
         dbpedia=''
@@ -46,7 +46,7 @@ def mainul():
             print(result)
             dbpedia=str(result["label"]["value"])
         if dbpedia:
-            child_of_root.attrib['class'] = str(dbpedia)
+            child_of_root.attrib['class'] = str(dbpedia[dbpedia.rfind('/') + 1:])
             et.write('../src/main/resources/nlp.xml')
 mainul()
 
