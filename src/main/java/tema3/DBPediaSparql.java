@@ -10,7 +10,7 @@ import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.ResourceFactory;
 
 public class DBPediaSparql {
-    public static void main(String[] args) {
+    public static void something(String[] args) {
         ParameterizedSparqlString qs = new ParameterizedSparqlString( "" +
                 "prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#>\n" +
                 "\n" +

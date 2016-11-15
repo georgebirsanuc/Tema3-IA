@@ -1,9 +1,9 @@
 <words>
 	<word> After </word>
-	<word> rescuing </word>
+	<word> Rescuing </word>
 	<word> an </word>
 	<word> orphaned </word>
-	<word> coyote </word>
+	<word class="http://dbpedia.org/resource/Mammal"> coyote </word>
 	<word> puppy </word>
 	<word> he </word>
 	<word> was </word>
