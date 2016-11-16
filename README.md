@@ -15,6 +15,7 @@ Pentru cuvintele care pot fi identificate în DBpedia, adăugați fiecărei etic
 - import project in eclipse (existing maven project)
 - download Sparql library for Python https://github.com/RDFLib/sparqlwrapper/releases
 - run setup.py with install argument (python setup.py install)
+- in cmd run pip install requests (just to be sure)
 - good to go :)
 
 # Usage
