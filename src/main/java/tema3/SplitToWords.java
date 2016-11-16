@@ -26,8 +26,8 @@ public class SplitToWords {
 
 	public static void main(String[] args) throws IOException {
 		String xml = "<words>\n";
-		String[] punctuation = { ".", ",", "!", "?", ":", ";", "\\", "/", "\"", "(", ")", "[", "]", "{", "}", "-", "+",
-				"=", "_", "#", "$", "%", "^", "&", "*", "~" };
+//		String[] punctuation = { ".", ",", "!", "?", ":", ";", "\\", "/", "\"", "(", ")", "[", "]", "{", "}", "-", "+",
+//				"=", "_", "#", "$", "%", "^", "&", "*", "~" };
 
 		// creates a StanfordCoreNLP object, with POS tagging, lemmatization,
 		// NER, parsing, and coreference resolution
@@ -62,8 +62,7 @@ public class SplitToWords {
 				// this is the NER label of the token
 				// String ne = token.gets(NamedEntityTagAnnotation.class);
 
-				if (!Arrays.asList(punctuation).contains(word))
-					xml += "\t<word> " + word + " </word>\n";
+				xml += "\t<word> " + word + " </word>\n";
 				// System.out.println("word: " + word + " pos: " + pos + " ne:"
 				// + ne);
 			}
@@ -77,7 +76,7 @@ public class SplitToWords {
 			// sentence.get(CollapsedCCProcessedDependenciesAnnotation.class);
 			// System.out.println("dependency graph:\n" + dependencies);
 		}
-
+		
 		xml += "</words>\n";
 		System.out.println(xml);
 		PrintWriter writer = new PrintWriter("src/main/resources/nlp.xml", "UTF-8");

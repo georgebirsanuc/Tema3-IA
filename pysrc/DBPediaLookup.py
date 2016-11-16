@@ -37,3 +37,5 @@ def main():
 	#			print(child2.text)
 	
 	return
+
+main()

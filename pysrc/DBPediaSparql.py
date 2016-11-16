@@ -47,9 +47,10 @@ def mainul():
             
             dbpedia=str(result["label"]["value"])
             if dbpedia and "umbel" in dbpedia:
+                print(dbpedia)
                 break
             print(dbpedia)
-			
+            
         if dbpedia:
             child_of_root.attrib['class'] = str(dbpedia[dbpedia.rfind('/') + 1:])
             et.write('../src/main/resources/nlp.xml')
