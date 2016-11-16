@@ -84,18 +84,6 @@ public class SplitToWords {
 		writer.print(xml);
 		writer.close();
 
-		// nlp.xml output file (nu chiar ce vrem)
-		// FileOutputStream os = new FileOutputStream(new
-		// File("src/main/resources/", "nlp.xml"));
-		// pipeline.xmlPrint(document, os);
-
-		// This is the coreference link graph
-		// Each chain stores a set of mentions that link to each other,
-		// along with a method for getting the most representative mention
-		// Both sentence and token offsets start at 1!
-		// Map<Integer, CorefChain> graph =
-		// document.get(CorefChainAnnotation.class);
-
 	}
 
 }
