@@ -22,37 +22,78 @@ def word(s):
             tempor = tempor + s[i]
     return(tempor)
 
+def sparqlQuerry (sparql, tempor):
+    sparql.setQuery("""
+                PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                PREFIX dbo: <http://dbpedia.org/ontology/>
+                SELECT ?label
+                WHERE { <http://dbpedia.org/resource/""" + tempor + """> rdf:type  ?label }
+            """)
+    sparql.setReturnFormat(JSON)
+    results = sparql.query().convert()
+
+    return results
+
+def mergeTags(et, root, i, j):
+    tagContent = ''
+    for k in range(i, i + j):
+        tagContent += root[k].text + ' '
+
+    for k in range(i + 1, i + j):
+        root.remove(root[k])
+    root[i].text = tagContent;
+    et.write('../src/main/resources/nlp.xml')
+    return
+
 def mainul():
     sparql = SPARQLWrapper("http://dbpedia.org/sparql")
 
     et = Et.parse('../src/main/resources/nlp.xml')
     root = et.getroot()
 
-    for child_of_root in root:
-        rootWord = (child_of_root.text)
-        tempor=word(rootWord)
-        sparql.setQuery("""
-            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-            PREFIX dbo: <http://dbpedia.org/ontology/>
-            SELECT ?label
-            WHERE { <http://dbpedia.org/resource/"""+tempor+"""> rdf:type  ?label }
-        """)
+    for i in range(0, len(root) - 1):
+        rootWord = (root[i].text)
 
-        print(tempor)
-        sparql.setReturnFormat(JSON)
-        results = sparql.query().convert()
+        # TO DO check multiple words
+        j = 0
+        expression = root[i].text
+        oldExpresseion = ""
+        while j <= 3:
+            j += 1
+            expression += " " + root[i + j].text
+            # print("### EXPRESSTION: " + word(expression))
+            resultss = sparqlQuerry(sparql, word(expression))
+            try:
+                a = str(resultss["results"]["bindings"][0])
+            except IndexError:
+                continue
+            oldExpresseion = expression
+
+        if (oldExpresseion != ''):
+            print(oldExpresseion, i, j)
+        if (rootWord != oldExpresseion):
+            mergeTags(et, root, i, j)
+        # rootWord = oldExpresseion
+
+        tempor = word(rootWord)
+
+        results = sparqlQuerry(sparql, tempor)
+
+        # print(tempor)
+
         dbpedia=''
         for result in results["results"]["bindings"]:
-            print(result)
+            #print(result)
             
             dbpedia=str(result["label"]["value"])
             if dbpedia and "umbel" in dbpedia:
-                print(dbpedia)
+             #   print(dbpedia)
                 break
-            print(dbpedia)
+            #print(dbpedia)
             
         if dbpedia:
-            child_of_root.attrib['class'] = str(dbpedia[dbpedia.rfind('/') + 1:])
+            root[i].attrib['class'] = str(dbpedia[dbpedia.rfind('/') + 1:])
             et.write('../src/main/resources/nlp.xml')
-mainul()
 
+et = Et.parse('../src/main/resources/nlp.xml')
+mergeTags(et, et.getroot(), 0, 4)
