@@ -24,3 +24,4 @@ Pentru cuvintele care pot fi identificate în DBpedia, adăugați fiecărei etic
 - the output file can be found in src/main/resources/nlp.xml
 - run pysrc/DBPediaSparql.py (open cmd, go to pysrc folder, enter the command python DBPediaSparql.py (must have Python in enviroment variables))
 - the final output file is src/main/resources/nlp.xml
+- (the other .java and .py files are just some things we tried and don't want to delete them yet :) )
